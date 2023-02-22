@@ -1,0 +1,22 @@
+.wrapper {
+    --sidebar-width-default: 244px;
+
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: var(--sidebar-width-default);
+    border-right: 1px solid rgb(219, 219, 219);
+    padding: 8px 12px 20px;
+}
+
+.logo {
+    display: flex;
+    padding: 28px 12px 16px;
+    margin-bottom: 19px;
+    width: 100%;
+    cursor: pointer;
+
+    .logo-img {
+        margin-top: 4px;
+    }
+}

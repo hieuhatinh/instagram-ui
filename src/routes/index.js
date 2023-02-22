@@ -5,15 +5,15 @@ import Search from '~/pages/Search';
 const publicRoutes = [
     {
         path: '/',
-        component: <Home />,
+        component: Home,
     },
     {
         path: '/search',
-        component: <Search />,
+        component: Search,
     },
     {
         path: '/explore',
-        component: <Explore />,
+        component: Explore,
     },
 ];
 
