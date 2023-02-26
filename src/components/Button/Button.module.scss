@@ -1,0 +1,32 @@
+.wrapper {
+    min-width: 96px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    background-color: transparent;
+    cursor: pointer;
+
+    + .wrapper {
+        margin-left: 16px;
+    }
+
+    + &.buttonSidebar {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+
+    .title + .icon,
+    .icon + .title {
+        margin-left: 16px;
+    }
+}
+
+.primary {
+    background-color: var(--primary);
+
+    &:hover {
+        background-color: rgb(24, 119, 242);
+    }
+}

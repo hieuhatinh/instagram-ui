@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../nam2/Web"
+		},
+		{
+			"path": "../../../../../.."
+		},
+		{
+			"path": "../../../../../../../nam2/ToanRoiRac/code"
+		},
+		{
+			"path": "C:/xampp/htdocs/php"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Workspace"
+	}
+}
