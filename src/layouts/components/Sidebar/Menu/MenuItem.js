@@ -5,34 +5,29 @@ import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ to, img, icon, title, className }) {
-    let Comp = NavLink;
-
-    if (!to) {
-        Comp = 'div';
-    }
-
-    const classes = cx('menu-item', {
-        [className]: className,
-    });
-
+function MenuItem({ to, image, icon, activeIcon, title, onClick }) {
     return (
-        <Comp className={classes} to={to}>
-            {img ? (
-                <img className={cx('left', 'avatar')} src={img} alt="avatar" />
+        <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={to} end>
+            {image ? (
+                <img className={cx('left', 'avatar')} src={image} alt="avatar" />
             ) : (
-                <span className={cx('left', 'icon')}>{icon}</span>
+                <>
+                    <span className={cx('left', 'icon')}>{icon}</span>
+                    <span className={cx('left', 'active-icon')}>{activeIcon}</span>
+                </>
             )}
             <span className={cx('title')}>{title}</span>
-        </Comp>
+        </NavLink>
     );
 }
 
 MenuItem.propTypes = {
     to: PropTypes.string,
-    img: PropTypes.object,
+    img: PropTypes.node,
     icon: PropTypes.node,
+    activeIcon: PropTypes.node,
     title: PropTypes.string,
+    onclick: PropTypes.func,
 };
 
 export default MenuItem;

@@ -1,13 +1,28 @@
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faClapperboard, faHouse, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import Menu from './Menu';
 import MenuItem from './Menu/MenuItem';
-import { faComment, faCompass, faHeart, faSquarePlus } from '@fortawesome/free-regular-svg-icons';
+import {
+    HomeIcon,
+    HomeActiveIcon,
+    SearchIcon,
+    SearchActiveIcon,
+    CompassIcon,
+    CompassActiveIcon,
+    WatchIcon,
+    WatchActiveIcon,
+    MessageIcon,
+    MessageActiveIcon,
+    HeartIcon,
+    HeartActiveIcon,
+    PlusIcon,
+    PlusActiveIcon,
+    MenuIcon,
+    MenuActiveIcon,
+} from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -15,41 +30,45 @@ const listMenu = [
     {
         title: 'Trang chủ',
         to: '/',
-        icon: <FontAwesomeIcon icon={faHouse} />,
+        icon: <HomeIcon />,
+        activeIcon: <HomeActiveIcon />,
     },
     {
         title: 'Tìm kiếm',
-        to: '/',
-        icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+        icon: <SearchIcon />,
+        activeIcon: <SearchActiveIcon />,
     },
     {
         title: 'Khám phá',
         to: '/explore',
-        icon: <FontAwesomeIcon icon={faCompass} />,
+        icon: <CompassIcon />,
+        activeIcon: <CompassActiveIcon />,
     },
     {
         title: 'Reels',
         to: '/reels',
-        icon: <FontAwesomeIcon icon={faClapperboard} />,
+        icon: <WatchIcon />,
+        activeIcon: <WatchActiveIcon />,
     },
     {
         title: 'Tin nhắn',
         to: '/inbox',
-        icon: <FontAwesomeIcon icon={faComment} />,
+        icon: <MessageIcon />,
+        activeIcon: <MessageActiveIcon />,
     },
     {
         title: 'Thông báo',
-        to: '/',
-        icon: <FontAwesomeIcon icon={faHeart} />,
+        icon: <HeartIcon />,
+        activeIcon: <HeartActiveIcon />,
     },
     {
         title: 'Tạo',
-        to: '/',
-        icon: <FontAwesomeIcon icon={faSquarePlus} />,
+        icon: <PlusIcon />,
+        activeIcon: <PlusActiveIcon />,
     },
     {
         title: 'Trang cá nhân',
-        to: '/',
+        to: '/:user',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMEUPFfhNo8pjE_ebpl8RUgDszCYLxmEILCw&usqp=CAU',
     },
 ];
@@ -63,12 +82,19 @@ function Sidebar() {
 
             <Menu>
                 {listMenu.map((item, index) => (
-                    <MenuItem key={index} img={item.img} title={item.title} to={item.to} icon={item.icon} />
+                    <MenuItem
+                        key={index}
+                        image={item.img}
+                        title={item.title}
+                        to={item.to}
+                        icon={item.icon}
+                        activeIcon={item.activeIcon}
+                    />
                 ))}
             </Menu>
 
             <div className={cx('see-more')}>
-                <MenuItem title="Xem thêm" icon={<FontAwesomeIcon icon={faBars} />} />
+                <MenuItem title="Xem thêm" icon={<MenuIcon />} activeIcon={<MenuActiveIcon />} />
             </div>
         </aside>
     );
