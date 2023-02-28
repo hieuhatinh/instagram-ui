@@ -1,0 +1,60 @@
+.wrapper {
+    --text-color-suggest: #8e8e8e;
+    --width-suggest: 468px;
+
+    margin: 18px auto 0;
+    width: var(--width-suggest);
+}
+
+.title {
+    font-weight: 700;
+}
+
+.list-account {
+    margin-top: 9px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    min-width: 468px;
+}
+
+.user-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    margin-right: 16px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.nickname {
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.user-name {
+    color: var(--text-color-suggest);
+    font-size: 14px;
+}
+
+.tick {
+    margin-left: 4px;
+    color: #0099f0;
+}
+
+.describe {
+    color: var(--text-color-suggest);
+    font-size: 12px;
+}
