@@ -30,6 +30,7 @@
     object-fit: cover;
     object-position: center;
     margin-right: 16px;
+    cursor: pointer;
 }
 
 .info {
@@ -44,14 +45,14 @@
     cursor: pointer;
 }
 
-.user-name {
-    color: var(--text-color-suggest);
-    font-size: 14px;
-}
-
 .tick {
     margin-left: 4px;
     color: #0099f0;
+}
+
+.user-name {
+    color: var(--text-color-suggest);
+    font-size: 14px;
 }
 
 .describe {

@@ -5,7 +5,7 @@ import styles from './SuggestAccount.module.scss';
 
 const cx = classNames.bind(styles);
 
-function SuggestAccount({ title, data }) {
+function SuggestAccount({ title, data = [] }) {
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>{title}</span>
