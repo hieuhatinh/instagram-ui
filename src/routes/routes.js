@@ -1,3 +1,4 @@
+import routes from '~/config';
 import Explore from '~/pages/Explore';
 import Home from '~/pages/Home';
 import Inbox from '~/pages/Inbox';
@@ -6,23 +7,23 @@ import Search from '~/pages/Search';
 
 const publicRoutes = [
     {
-        path: '/',
+        path: routes.home,
         component: Home,
     },
     {
-        path: '/search',
+        path: routes.search,
         component: Search,
     },
     {
-        path: '/explore',
+        path: routes.explore,
         component: Explore,
     },
     {
-        path: '/reels',
+        path: routes.reels,
         component: Reels,
     },
     {
-        path: '/inbox',
+        path: routes.inbox,
         component: Inbox,
     },
 ];

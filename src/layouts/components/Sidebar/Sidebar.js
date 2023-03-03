@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 
 import images from '~/assets/images';
 import classNames from 'classnames/bind';
+import routes from '~/config';
 import styles from './Sidebar.module.scss';
 import Menu from './Menu';
 import MenuItem from './Menu/MenuItem';
@@ -29,54 +30,59 @@ const cx = classNames.bind(styles);
 const listMenu = [
     {
         title: 'Trang chủ',
-        to: '/',
+        to: routes.home,
         icon: <HomeIcon />,
         activeIcon: <HomeActiveIcon />,
     },
     {
         title: 'Tìm kiếm',
+        to: '#',
         icon: <SearchIcon />,
         activeIcon: <SearchActiveIcon />,
     },
     {
         title: 'Khám phá',
-        to: '/explore',
+        to: routes.explore,
         icon: <CompassIcon />,
         activeIcon: <CompassActiveIcon />,
     },
     {
         title: 'Reels',
-        to: '/reels',
+        to: routes.reels,
         icon: <WatchIcon />,
         activeIcon: <WatchActiveIcon />,
     },
     {
         title: 'Tin nhắn',
-        to: '/inbox',
+        to: routes.inbox,
         icon: <MessageIcon />,
         activeIcon: <MessageActiveIcon />,
     },
     {
         title: 'Thông báo',
+        to: '#',
         icon: <HeartIcon />,
         activeIcon: <HeartActiveIcon />,
     },
     {
         title: 'Tạo',
+        to: '#/*',
         icon: <PlusIcon />,
         activeIcon: <PlusActiveIcon />,
     },
     {
         title: 'Trang cá nhân',
-        to: '/:user',
+        to: routes.profile,
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMEUPFfhNo8pjE_ebpl8RUgDszCYLxmEILCw&usqp=CAU',
     },
 ];
 
 function Sidebar() {
+    const userAccount = 'nguyen_hieu';
+
     return (
         <aside className={cx('wrapper')}>
-            <Link to="/" className={cx('logo')}>
+            <Link to={routes.home} className={cx('logo')}>
                 <img className={cx('logo-img')} src={images.logo} alt="logo" />
             </Link>
 
@@ -86,7 +92,7 @@ function Sidebar() {
                         key={index}
                         image={item.img}
                         title={item.title}
-                        to={item.to}
+                        to={typeof item.to === 'function' ? item.to(userAccount) : item.to}
                         icon={item.icon}
                         activeIcon={item.activeIcon}
                     />

@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+
 import styles from './PreviewAccount.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import Button from '~/components/Button';
 import { UserPlus } from '~/components/Icons';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -14,13 +17,17 @@ function PreviewAccount({ data }) {
     return (
         <div className={cx('wrapper')}>
             <header className={cx('header')}>
-                <img className={cx('user-img')} src={data.image} alt="" />
+                <Link to={routes.profile(data.nickname)}>
+                    <img className={cx('user-img')} src={data.image} alt={data.nickname} />
+                </Link>
 
                 <div className={cx('info')}>
-                    <span className={cx('nickname')}>
-                        {data.nickname}
-                        <span className={cx('tick')}>{data.tick}</span>
-                    </span>
+                    <Link to={routes.profile(data.nickname)}>
+                        <span className={cx('nickname')}>
+                            {data.nickname}
+                            <span className={cx('tick')}>{data.tick}</span>
+                        </span>
+                    </Link>
                     <span className={cx('user-name')}>{data.username}</span>
                 </div>
             </header>

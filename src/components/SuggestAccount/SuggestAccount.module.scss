@@ -1,5 +1,4 @@
 .wrapper {
-    --text-color-suggest: #8e8e8e;
     --width-suggest: 468px;
 
     margin: 18px auto 0;
@@ -51,11 +50,11 @@
 }
 
 .user-name {
-    color: var(--text-color-suggest);
+    color: var(--text-color-grey);
     font-size: 14px;
 }
 
 .describe {
-    color: var(--text-color-suggest);
+    color: var(--text-color-grey);
     font-size: 12px;
 }

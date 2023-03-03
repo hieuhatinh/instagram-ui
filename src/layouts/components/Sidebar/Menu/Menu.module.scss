@@ -30,31 +30,31 @@
     &:hover {
         background-color: rgb(250, 250, 250);
     }
-}
 
-.left {
-    width: 24px;
-    height: 24px;
-    margin-right: 16px;
-}
+    .left {
+        width: 24px;
+        height: 24px;
+        margin-right: 16px;
+    }
 
-.avatar {
-    border-radius: 50%;
-    object-fit: contain;
-}
+    .avatar {
+        border-radius: 50%;
+        object-fit: contain;
+    }
 
-.icon {
-    display: flex;
-}
+    .icon {
+        display: flex;
+    }
 
-.active-icon {
-    display: none;
-}
+    .active-icon {
+        display: none;
+    }
 
-.title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: start;
-    font-size: 1.6rem;
+    .title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: start;
+        font-size: 1.6rem;
+    }
 }
