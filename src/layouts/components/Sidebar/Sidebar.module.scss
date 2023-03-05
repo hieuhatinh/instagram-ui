@@ -8,6 +8,10 @@
     width: var(--sidebar-width-default);
     border-right: 1px solid rgb(219, 219, 219);
     padding: 8px 12px 20px;
+
+    &.show {
+        width: 72px;
+    }
 }
 
 .logo {

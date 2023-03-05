@@ -5,9 +5,14 @@ import styles from './Menu.module.scss';
 
 const cx = classNames.bind(styles);
 
-function MenuItem({ to, image, icon, activeIcon, title }) {
+function MenuItem({ image, title, to, icon, activeIcon, isActive, onClickTab }) {
+    const classes = (nav) =>
+        cx('menu-item', {
+            active: isActive ? (nav.isActive = true) : (nav.isActive = false),
+        });
+
     return (
-        <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={to}>
+        <NavLink className={classes} to={to} onClick={onClickTab}>
             {image ? (
                 <img className={cx('left', 'avatar')} src={image} alt="avatar" />
             ) : (
@@ -22,11 +27,13 @@ function MenuItem({ to, image, icon, activeIcon, title }) {
 }
 
 MenuItem.propTypes = {
+    image: PropTypes.node,
+    title: PropTypes.string,
     to: PropTypes.string,
-    img: PropTypes.node,
     icon: PropTypes.node,
     activeIcon: PropTypes.node,
-    title: PropTypes.string,
+    isActive: PropTypes.bool,
+    onClickTab: PropTypes.func,
 };
 
 export default MenuItem;

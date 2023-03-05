@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import images from '~/assets/images';
@@ -39,6 +40,7 @@ const listMenu = [
         to: '#',
         icon: <SearchIcon />,
         activeIcon: <SearchActiveIcon />,
+        onClick: true,
     },
     {
         title: 'Khám phá',
@@ -79,6 +81,8 @@ const listMenu = [
 
 function Sidebar() {
     const userAccount = 'nguyen_hieu';
+    const [tabActive, setTabActive] = useState('Trang chủ');
+    const [activeMore, setActiveMore] = useState(false);
 
     return (
         <aside className={cx('wrapper')}>
@@ -95,12 +99,20 @@ function Sidebar() {
                         to={typeof item.to === 'function' ? item.to(userAccount) : item.to}
                         icon={item.icon}
                         activeIcon={item.activeIcon}
+                        isActive={tabActive === item.title}
+                        onClickTab={() => setTabActive(item.title)}
                     />
                 ))}
             </Menu>
 
             <div className={cx('see-more')}>
-                <MenuItem title="Xem thêm" icon={<MenuIcon />} activeIcon={<MenuActiveIcon />} />
+                <MenuItem
+                    isActive={activeMore}
+                    onClickTab={() => setActiveMore(!activeMore)}
+                    title="Xem thêm"
+                    icon={<MenuIcon />}
+                    activeIcon={<MenuActiveIcon />}
+                />
             </div>
         </aside>
     );
