@@ -6,4 +6,5 @@
 .content {
     position: relative;
     margin-left: var(--sidebar-width-default);
+    overflow: overlay;
 }
