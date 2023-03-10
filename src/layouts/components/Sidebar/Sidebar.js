@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { Link } from 'react-router-dom';
 
@@ -47,7 +47,7 @@ const listMenu = [
         noRoute: true,
         iconLeft: <SearchIcon />,
         activeIcon: <SearchActiveIcon />,
-        onClick: true,
+        click: true,
     },
     {
         title: 'Khám phá',
@@ -72,10 +72,11 @@ const listMenu = [
         noRoute: true,
         iconLeft: <HeartIcon />,
         activeIcon: <HeartActiveIcon />,
+        click: true,
     },
     {
         title: 'Tạo',
-        to: '#/*',
+        to: '#',
         iconLeft: <PlusIcon />,
         activeIcon: <PlusActiveIcon />,
     },
@@ -109,13 +110,27 @@ const listMenuWatchMore = [
     },
 ];
 
+const listNoRoute = [
+    {
+        title: 'Tìm kiếm',
+        click: false,
+    },
+    {
+        title: 'Thông báo',
+        click: false,
+    },
+];
+
 function Sidebar() {
     const userAccount = 'nguyen_hieu';
     const [tabActive, setTabActive] = useState('Trang chủ');
     const [activeMore, setActiveMore] = useState(false);
     const [visible, setVisible] = useState(false);
-    const [hideMenu, setHideMenu] = useState(false);
+    const [hideSidebar, setHideSidebar] = useState(false);
+    const [clickNoRoute, setClickNoRoute] = useState(listNoRoute);
+    const [indexItemNoRoute, setIndexItemNoRoute] = useState();
 
+    // xử lý click hiện 'xem thêm'
     const hideSeeMore = () => setVisible(false);
     const showSeeMore = () => setVisible(true);
 
@@ -124,14 +139,56 @@ function Sidebar() {
         visible ? hideSeeMore() : showSeeMore();
     };
 
-    const handleClickMenuItem = (title, noRoute) => {
-        setTabActive(title);
+    // logic xử lý ẩn hiện sidebar
+    // tìm index của phần từ trong arr theo title
+    const findIndexItem = (arr, title) => {
+        let findItem = arr.find((item) => item.title === title);
+        return arr.indexOf(findItem);
+    };
 
-        if (noRoute) {
-            setHideMenu(!hideMenu);
-        } else {
-            setHideMenu(false);
-        }
+    // remove item thuộc mảng
+    const removeItem = (prev, title) => {
+        const newList = [...prev];
+        const indexItem = findIndexItem(newList, title);
+        return newList.slice(indexItem);
+    };
+
+    const handleClickMenuItem = (title, noRoute) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+            setTabActive(title);
+        }, [title]);
+
+        clickNoRoute.forEach((item) => {
+            if (noRoute) {
+                if (item.title === title) {
+                    if (indexItemNoRoute === findIndexItem(clickNoRoute, title)) {
+                        if (item.click === false) {
+                            setClickNoRoute((prev) => {
+                                const newList = removeItem(prev, title);
+                                setIndexItemNoRoute(findIndexItem(newList, title));
+                                return [...newList, { title, click: true }];
+                            });
+                            setHideSidebar(true);
+                        } else if (item.click === true) {
+                            setClickNoRoute((prev) => {
+                                const newList = removeItem(prev, title);
+                                return [...newList, { title, click: false }];
+                            });
+                            setHideSidebar(false);
+                        }
+                    } else {
+                        setClickNoRoute((prev) => {
+                            const newList = removeItem(prev, title);
+                            return [...newList, { title, click: false }];
+                        });
+                        setHideSidebar(false);
+                    }
+                }
+            } else {
+                setHideSidebar(false);
+            }
+        });
     };
 
     const renderMenuSeeMore = () => (
@@ -145,7 +202,7 @@ function Sidebar() {
     );
 
     return (
-        <aside className={cx('wrapper', hideMenu ? 'show' : '')}>
+        <aside className={cx('wrapper', hideSidebar ? 'show' : '')}>
             <Link to={routes.home} className={cx('logo')}>
                 <img className={cx('logo-img')} src={images.logo} alt="logo" />
             </Link>
