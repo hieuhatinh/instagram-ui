@@ -9,9 +9,9 @@ import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function AccountItem({ data, onClick, hasButton = false }) {
     return (
-        <Link className={cx('account-item')} to={routes.profile(data.nickname)}>
+        <Link onClick={(data) => onClick(data)} className={cx('account-item')} to={routes.profile(data.nickname)}>
             <img className={cx('user-img')} src={data.image} alt={data.nickname} />
 
             <div className={cx('info')}>
@@ -24,15 +24,21 @@ function AccountItem({ data }) {
                 </span>
             </div>
 
-            <button className={cx('button')}>
-                <FontAwesomeIcon icon={faXmark} />
-            </button>
+            {hasButton ? (
+                <button className={cx('button')}>
+                    <FontAwesomeIcon icon={faXmark} />
+                </button>
+            ) : (
+                <></>
+            )}
         </Link>
     );
 }
 
 AccountItem.propTypes = {
     data: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
+    hasButton: PropTypes.bool,
 };
 
 export default AccountItem;

@@ -74,23 +74,39 @@ const users = [
 
 function Search() {
     const [value, setValue] = useState('');
+    const [resultsSearch, setResultsSearch] = useState([]);
     const [searched, setSeached] = useState([]);
     const [showIcon, setShowIcon] = useState(true);
 
     const inputRef = useRef();
 
+    // call api tìm kiếm user
     useEffect(() => {
-        setSeached(users);
+        if (!value.trim()) {
+            setResultsSearch([]);
+            return;
+        }
+        setResultsSearch(users);
     }, [value]);
 
     const handleShowIcon = () => {
         inputRef.current.focus();
         setShowIcon(false);
+        setResultsSearch([]);
     };
 
     const handleClearValue = () => {
         setShowIcon(true);
         setValue('');
+        setResultsSearch([]);
+    };
+
+    // call api lưu kết quả tìm kiếm vào data base
+    const handleClickItem = (data) => {
+        let hasData = searched.includes(data);
+        if (!hasData) {
+            setSeached((prev) => [...prev, data]);
+        }
     };
 
     return (
@@ -101,8 +117,8 @@ function Search() {
             <div className={cx('container')}>
                 <div className={cx('search')}>
                     {showIcon ? (
-                        <i onClick={handleShowIcon}>
-                            <SearchIcon className={cx('icon-search')} />
+                        <i className={cx('icon--search')} onClick={handleShowIcon}>
+                            <SearchIcon />
                         </i>
                     ) : (
                         <></>
@@ -118,25 +134,35 @@ function Search() {
                     {showIcon ? (
                         <></>
                     ) : (
-                        <i onClick={handleClearValue}>
-                            <FontAwesomeIcon className={cx('icon-clear')} icon={faCircleXmark} />
+                        <i className={cx('icon--clear')} onClick={handleClearValue}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
                         </i>
                     )}
                 </div>
                 <div className={cx('box-results')}>
                     <div className={cx('results')}>
-                        <div className={cx('results__title')}>
-                            <h4>Gần đây</h4>
-                            <Button text>Xoá tất cả</Button>
-                        </div>
-                        {!searched ? (
-                            <div className={cx('results__content')}>
-                                <p className={cx('notice')}>Không có nội dung tìm kiếm mới đây.</p>
-                            </div>
+                        {resultsSearch.length === 0 ? (
+                            <>
+                                <div className={cx('results__title')}>
+                                    <h4>Gần đây</h4>
+                                    {searched.length !== 0 ? <Button text>Xoá tất cả</Button> : <></>}
+                                </div>
+                                {searched.length === 0 ? (
+                                    <div className={cx('results__content')}>
+                                        <p className={cx('notice')}>Không có nội dung tìm kiếm mới đây.</p>
+                                    </div>
+                                ) : (
+                                    <WrapperBox>
+                                        {searched.map((data) => (
+                                            <AccountItem key={data.id} data={data} hasButton />
+                                        ))}
+                                    </WrapperBox>
+                                )}
+                            </>
                         ) : (
                             <WrapperBox>
-                                {searched.map((data) => (
-                                    <AccountItem key={data.id} data={data} />
+                                {resultsSearch.map((data) => (
+                                    <AccountItem key={data.id} data={data} onClick={(data) => handleClickItem(data)} />
                                 ))}
                             </WrapperBox>
                         )}
