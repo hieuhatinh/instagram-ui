@@ -11,7 +11,7 @@ import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function AccountItem({ data, titleButton }) {
     const renderPreview = () => (
         <PopperWrapper>
             <PreviewAccount data={data} />
@@ -35,17 +35,18 @@ function AccountItem({ data }) {
                         </span>
                     </Link>
                 </Tippy>
-                <span className={cx('user-name')}>{data.username}</span>
-                <span className={cx('describe')}>{data.describe}</span>
+                <span className={cx('text', 'user-name')}>{data.username}</span>
+                <span className={cx('text', 'describe')}>{data.describe}</span>
             </div>
 
-            <Button primary>Theo dõi</Button>
+            <Button primary>{titleButton}</Button>
         </div>
     );
 }
 
 AccountItem.propTypes = {
     data: PropTypes.object.isRequired,
+    titleButton: PropTypes.node.isRequired,
 };
 
 export default AccountItem;

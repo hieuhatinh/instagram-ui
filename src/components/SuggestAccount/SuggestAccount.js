@@ -11,7 +11,7 @@ function SuggestAccount({ title, data = [] }) {
             <span className={cx('title')}>{title}</span>
             <div className={cx('list-account')}>
                 {data.map((item) => (
-                    <AccountItem key={item.id} data={item} />
+                    <AccountItem key={item.id} data={item} titleButton="Theo dõi" />
                 ))}
             </div>
         </div>

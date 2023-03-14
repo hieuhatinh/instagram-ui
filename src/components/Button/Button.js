@@ -12,6 +12,8 @@ function Button({
     href,
     disabled = false,
     primary = false,
+    text = false,
+    buttonIcon = false,
     className,
     iconLeft,
     iconRight,
@@ -45,6 +47,7 @@ function Button({
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        text,
     });
 
     return (
@@ -61,6 +64,8 @@ Button.propTypes = {
     href: PropTypes.string,
     disabled: PropTypes.bool,
     primary: PropTypes.bool,
+    text: PropTypes.bool,
+    buttonIcon: PropTypes.bool,
     className: PropTypes.string,
     iconLeft: PropTypes.node,
     iconRight: PropTypes.node,

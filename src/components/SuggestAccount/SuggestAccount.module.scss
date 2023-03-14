@@ -49,12 +49,16 @@
     color: #0099f0;
 }
 
-.user-name {
+.text {
     color: var(--text-color-grey);
-    font-size: 14px;
-}
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
-.describe {
-    color: var(--text-color-grey);
-    font-size: 12px;
+    &.user-name {
+        font-size: 14px;
+    }
+
+    &.describe {
+        font-size: 12px;
+    }
 }
