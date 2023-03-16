@@ -20,21 +20,31 @@ function AccountItem({ data, titleButton }) {
 
     return (
         <div className={cx('account-item')}>
-            <Tippy delay={[300, 200]} offset={[0, 3]} interactive placement="bottom-start" render={renderPreview}>
-                <Link to={routes.profile(data.nickname)}>
-                    <img className={cx('user-img')} src={data.image} alt={data.nickname} />
-                </Link>
-            </Tippy>
-
-            <div className={cx('info')}>
-                <Tippy delay={[300, 200]} offset={[0, 7]} interactive placement="bottom-start" render={renderPreview}>
+            <div>
+                <Tippy delay={[300, 200]} offset={[0, 3]} interactive placement="bottom-start" render={renderPreview}>
                     <Link to={routes.profile(data.nickname)}>
-                        <span className={cx('nickname')}>
-                            {data.nickname}
-                            <span className={cx('tick')}>{data.tick}</span>
-                        </span>
+                        <img className={cx('user-img')} src={data.image} alt={data.nickname} />
                     </Link>
                 </Tippy>
+            </div>
+
+            <div className={cx('info')}>
+                <div>
+                    <Tippy
+                        delay={[300, 200]}
+                        offset={[0, 7]}
+                        interactive
+                        placement="bottom-start"
+                        render={renderPreview}
+                    >
+                        <Link to={routes.profile(data.nickname)}>
+                            <span className={cx('nickname')}>
+                                {data.nickname}
+                                <span className={cx('tick')}>{data.tick}</span>
+                            </span>
+                        </Link>
+                    </Tippy>
+                </div>
                 <span className={cx('text', 'user-name')}>{data.username}</span>
                 <span className={cx('text', 'describe')}>{data.describe}</span>
             </div>

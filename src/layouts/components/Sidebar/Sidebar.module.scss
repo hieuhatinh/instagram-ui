@@ -1,12 +1,15 @@
 .wrapper {
+    --sidebar-width-hide: 72px;
+
     position: fixed;
     left: 0;
     height: 100%;
     width: var(--sidebar-width-default);
     z-index: 10;
+    transition: width 0.3s ease-in-out;
 
     &.hide {
-        width: 72px;
+        width: var(--sidebar-width-hide);
     }
 }
 
@@ -15,11 +18,22 @@
     left: 100%;
     top: 0;
     height: 100%;
-    width: 397px;
     background-color: var(--white);
     box-shadow: 9px 0 24px rgba(0, 0, 0, 0.15);
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
+    z-index: 0;
+    transition: width 0.4s ease-in-out, opacity 0.4s ease-in-out;
+
+    &.box--show {
+        opacity: 1;
+        width: 397px;
+    }
+
+    &.box--hide {
+        opacity: 0;
+        width: 0;
+    }
 }
 
 .container {
@@ -30,6 +44,7 @@
     width: 100%;
     border-right: 1px solid rgb(219, 219, 219);
     padding: 8px 12px 20px;
+    z-index: 9;
 }
 
 .logo {
@@ -42,5 +57,33 @@
 
     .logo-img {
         margin-top: 4px;
+    }
+
+    .logo--text {
+        animation: showLogoText 0.3s ease-in-out;
+    }
+
+    .logo--icon {
+        animation: showLogoIcon 0.3s ease-in-out;
+    }
+}
+
+@keyframes showLogoText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes showLogoIcon {
+    from {
+        transform: scale(0.5, 0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1, 1);
+        opacity: 1;
     }
 }

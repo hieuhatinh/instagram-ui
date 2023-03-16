@@ -115,17 +115,11 @@ function Sidebar() {
     const userAccount = 'nguyen_hieu';
     const [tabActive, setTabActive] = useState('Trang chủ');
     const [activeMore, setActiveMore] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const [showBox, setShowBox] = useState(false);
     const [hideSidebar, setHideSidebar] = useState(false);
 
     // xử lý click hiện 'xem thêm'
-    const hideSeeMore = () => setVisible(false);
-    const showSeeMore = () => setVisible(true);
-
     const handleClickSeeMore = () => {
         setActiveMore(!activeMore);
-        visible ? hideSeeMore() : showSeeMore();
     };
 
     const renderMenuSeeMore = () => (
@@ -133,41 +127,40 @@ function Sidebar() {
             {listMenuWatchMore.map((item, index) => (
                 <MenuItem key={index} className={cx('right-icon')} title={item.title} iconRight={item.iconRight} />
             ))}
-            <MenuItem className={cx('right-icon', 'horizontal-line')} title="Chuyển tài khoản" />
+            <MenuItem className={cx('horizontal-line')} title="Chuyển tài khoản" />
             <MenuItem className={cx('right-icon')} title="Đăng xuất" />
         </PopperWrapper>
     );
 
+    // xử lý hiển thị box search, thông báo
     const hanldeClickSidebarItem = (title, noRoute) => {
         setTabActive(title);
         if (noRoute) {
             setHideSidebar(true);
-            setShowBox(true);
         } else {
             setHideSidebar(false);
-            setShowBox(false);
         }
     };
 
     return (
         <aside className={cx('wrapper', hideSidebar ? 'hide' : '')}>
-            {showBox ? (
-                <div className={cx('box')}>
-                    <Search />
-                </div>
-            ) : null}
+            <div className={cx('box', hideSidebar ? 'box--show' : 'box--hide')}>
+                <Search />
+            </div>
+
             <div className={cx('container')}>
                 <Link to={routes.home} className={cx('logo')}>
-                    {hideSidebar ? (
-                        <img className={cx('logo-img')} src={images.logoIcon} alt="logo" />
-                    ) : (
-                        <img className={cx('logo-img')} src={images.logo} alt="logo" />
-                    )}
+                    <img
+                        className={cx('logo-img', hideSidebar ? 'logo--icon' : 'logo--text')}
+                        src={hideSidebar ? images.logoIcon : images.logo}
+                        alt="logo"
+                    />
                 </Link>
 
                 <Menu>
                     {listMenu.map((item, index) => (
                         <MenuItem
+                            className={cx(hideSidebar ? 'sidebar--hide' : '')}
                             key={index}
                             image={item.img}
                             title={item.title}
@@ -181,7 +174,7 @@ function Sidebar() {
                 </Menu>
 
                 <Tippy
-                    visible={visible}
+                    visible={activeMore}
                     interactive
                     offset={[10, 0]}
                     render={renderMenuSeeMore}

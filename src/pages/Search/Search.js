@@ -92,7 +92,6 @@ function Search() {
     const handleShowIcon = () => {
         inputRef.current.focus();
         setShowIcon(false);
-        setResultsSearch([]);
     };
 
     const handleClearValue = () => {
