@@ -15,7 +15,6 @@
 .header {
     display: flex;
     align-items: center;
-    flex: 1;
     padding: 0 16px;
 }
 
@@ -47,7 +46,7 @@
 }
 
 .user-name {
-    color: var(--text-color-suggest);
+    color: var(--text-color-grey);
     font-size: 14px;
 }
 

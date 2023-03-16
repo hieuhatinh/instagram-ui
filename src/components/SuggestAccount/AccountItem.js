@@ -11,7 +11,7 @@ import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function AccountItem({ data, titleButton }) {
     const renderPreview = () => (
         <PopperWrapper>
             <PreviewAccount data={data} />
@@ -20,32 +20,43 @@ function AccountItem({ data }) {
 
     return (
         <div className={cx('account-item')}>
-            <Tippy delay={[300, 200]} offset={[0, 3]} interactive placement="bottom-start" render={renderPreview}>
-                <Link to={routes.profile(data.nickname)}>
-                    <img className={cx('user-img')} src={data.image} alt={data.nickname} />
-                </Link>
-            </Tippy>
-
-            <div className={cx('info')}>
-                <Tippy delay={[300, 200]} offset={[0, 7]} interactive placement="bottom-start" render={renderPreview}>
+            <div>
+                <Tippy delay={[300, 200]} offset={[0, 3]} interactive placement="bottom-start" render={renderPreview}>
                     <Link to={routes.profile(data.nickname)}>
-                        <span className={cx('nickname')}>
-                            {data.nickname}
-                            <span className={cx('tick')}>{data.tick}</span>
-                        </span>
+                        <img className={cx('user-img')} src={data.image} alt={data.nickname} />
                     </Link>
                 </Tippy>
-                <span className={cx('user-name')}>{data.username}</span>
-                <span className={cx('describe')}>{data.describe}</span>
             </div>
 
-            <Button primary>Theo dõi</Button>
+            <div className={cx('info')}>
+                <div>
+                    <Tippy
+                        delay={[300, 200]}
+                        offset={[0, 7]}
+                        interactive
+                        placement="bottom-start"
+                        render={renderPreview}
+                    >
+                        <Link to={routes.profile(data.nickname)}>
+                            <span className={cx('nickname')}>
+                                {data.nickname}
+                                <span className={cx('tick')}>{data.tick}</span>
+                            </span>
+                        </Link>
+                    </Tippy>
+                </div>
+                <span className={cx('text', 'user-name')}>{data.username}</span>
+                <span className={cx('text', 'describe')}>{data.describe}</span>
+            </div>
+
+            <Button primary>{titleButton}</Button>
         </div>
     );
 }
 
 AccountItem.propTypes = {
     data: PropTypes.object.isRequired,
+    titleButton: PropTypes.node.isRequired,
 };
 
 export default AccountItem;

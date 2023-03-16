@@ -9,8 +9,7 @@ function MenuItem({ className, image, title, to, iconLeft, iconRight, activeIcon
     const classes = (nav) =>
         cx(
             'menu-item',
-            { [className]: className },
-            { active: isActive ? (nav.isActive = true) : (nav.isActive = false) },
+            { [className]: className, active: isActive ? (nav.isActive = true) : (nav.isActive = false) },
         );
 
     return (

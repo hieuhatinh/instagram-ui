@@ -30,3 +30,12 @@
         background-color: rgb(24, 119, 242);
     }
 }
+.text {
+    min-width: 64px;
+    color: #34adf8;
+    padding: 0;
+
+    &:hover {
+        color: #2d5b85;
+    }
+}
