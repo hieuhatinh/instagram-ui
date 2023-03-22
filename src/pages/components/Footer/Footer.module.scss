@@ -1,0 +1,19 @@
+// Footer
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 16px;
+}
+
+// FooterItem
+.footer-item {
+    color: var(--text-color-grey) !important;
+    font-size: 1.2rem;
+    margin: 4px 9px;
+
+    &.text-decoration:hover {
+        text-decoration: underline !important;
+    }
+}
