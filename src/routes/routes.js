@@ -1,11 +1,24 @@
 import routes from '~/config';
+import { Login, Register } from '~/pages/Accounts';
 import Explore from '~/pages/Explore';
 import Home from '~/pages/Home';
 import Inbox from '~/pages/Inbox';
 import Reels from '~/pages/Reels';
+
 import Search from '~/pages/Search';
 
 const publicRoutes = [
+    {
+        path: routes.home,
+        component: Login,
+    },
+    {
+        path: routes.register,
+        component: Register,
+    },
+];
+
+const privateRoutes = [
     {
         path: routes.home,
         component: Home,
@@ -27,7 +40,5 @@ const publicRoutes = [
         component: Inbox,
     },
 ];
-
-const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };

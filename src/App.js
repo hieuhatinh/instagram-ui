@@ -1,15 +1,20 @@
-import { Fragment } from 'react';
+// import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { publicRoutes } from '~/routes';
-import DefaultLayout from '~/layouts/DefaultLayout';
+import { publicRoutes, privateRoutes } from '~/routes';
+// import DefaultLayout from '~/layouts/DefaultLayout';
 
 function App() {
     return (
         <Router>
-            <div className="App">
+            <div className="App" style={{ height: '100vh' }}>
                 <Routes>
                     {publicRoutes.map((route, index) => {
+                        const Page = route.component;
+                        return <Route key={index} path={route.path} element={<Page />} />;
+                    })}
+
+                    {/* {privateRoutes.map((route, index) => {
                         const Page = route.component;
 
                         let Layout = DefaultLayout;
@@ -31,7 +36,7 @@ function App() {
                                 }
                             />
                         );
-                    })}
+                    })} */}
                 </Routes>
             </div>
         </Router>

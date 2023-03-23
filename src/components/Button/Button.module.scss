@@ -30,6 +30,7 @@
         background-color: rgb(24, 119, 242);
     }
 }
+
 .text {
     min-width: 64px;
     color: #34adf8;
@@ -38,4 +39,9 @@
     &:hover {
         color: #2d5b85;
     }
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: none;
 }

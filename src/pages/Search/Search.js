@@ -34,42 +34,6 @@ const users = [
         describe: '940 nghìn người theo dõi',
         tick: <FontAwesomeIcon icon={faCircleCheck} />,
     },
-    {
-        id: 4,
-        image: 'https://cdn.oneesports.vn/cdn-data/sites/4/2022/02/hinh-nen-Luffy-2K-chat-ngau.jpg',
-        nickname: 'hoangthuylinhofficial',
-        username: 'Hoàng Thùy Linh',
-        describe: '940 nghìn người theo dõi',
-        tick: <FontAwesomeIcon icon={faCircleCheck} />,
-    },
-    {
-        id: 5,
-        image: 'https://cdn.oneesports.vn/cdn-data/sites/4/2022/02/hinh-nen-Luffy-2K-chat-ngau.jpg',
-        nickname: 'hoangthuylinhofficial',
-        username: 'Hoàng Thùy Linh',
-    },
-    {
-        id: 6,
-        image: 'https://cdn.oneesports.vn/cdn-data/sites/4/2022/02/hinh-nen-Luffy-2K-chat-ngau.jpg',
-        nickname: 'hoangthuylinhofficial',
-        username: 'Hoàng Thùy Linh',
-        describe: '940 nghìn người theo dõi',
-        tick: <FontAwesomeIcon icon={faCircleCheck} />,
-    },
-    {
-        id: 7,
-        image: 'https://cdn.oneesports.vn/cdn-data/sites/4/2022/02/hinh-nen-Luffy-2K-chat-ngau.jpg',
-        nickname: 'hoangthuylinhofficial',
-        username: 'Hoàng Thùy Linh',
-        describe: '940 nghìn người theo dõi',
-        tick: <FontAwesomeIcon icon={faCircleCheck} />,
-    },
-    {
-        id: 8,
-        image: 'https://cdn.oneesports.vn/cdn-data/sites/4/2022/02/hinh-nen-Luffy-2K-chat-ngau.jpg',
-        nickname: 'hoangthuylinhofficial',
-        username: 'Hoàng Thùy Linh',
-    },
 ];
 
 function Search() {
