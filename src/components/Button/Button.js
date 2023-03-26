@@ -30,7 +30,7 @@ function Button({
 
     if (disabled) {
         Object.keys(props).forEach((key) => {
-            if ((key.startsWith = 'on' && typeof props[key] === 'function')) {
+            if (key.startsWith === 'on' && typeof props[key] === 'function') {
                 delete props[key];
             }
         });
@@ -48,6 +48,7 @@ function Button({
         [className]: className,
         primary,
         text,
+        disabled,
     });
 
     return (

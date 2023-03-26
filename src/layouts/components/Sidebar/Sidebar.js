@@ -33,6 +33,7 @@ import {
 } from '~/components/Icons';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Search from '~/pages/Search';
+import Notification from '~/pages/Notification';
 
 const cx = classNames.bind(styles);
 
@@ -142,11 +143,17 @@ function Sidebar() {
         }
     };
 
+    const handleShowBox = () => {
+        if (tabActive.toLowerCase() === 'tìm kiếm') {
+            return <Search />;
+        } else if (tabActive.toLowerCase() === 'khám phá') {
+            return <Notification />;
+        }
+    };
+
     return (
         <aside className={cx('wrapper', hideSidebar ? 'hide' : '')}>
-            <div className={cx('box', hideSidebar ? 'box--show' : 'box--hide')}>
-                <Search />
-            </div>
+            <div className={cx('box', hideSidebar ? 'box--show' : 'box--hide')}>{handleShowBox()}</div>
 
             <div className={cx('container')}>
                 <Link to={routes.home} className={cx('logo')}>
