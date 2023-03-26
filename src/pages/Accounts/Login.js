@@ -1,3 +1,4 @@
+import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,10 +9,26 @@ import styles from './Accounts.module.scss';
 import Footer from '~/pages/components/Footer';
 import logoLogin from '~/assets/images/logo-login.png';
 import routes from '~/config';
+import reducer, { initStateLogin } from './validateAccount/reducer';
+import { accountLogin, passwordLogin } from './validateAccount/actions';
 
 const cx = classNames.bind(styles);
 
 function Login() {
+    const [disabled, setDisabled] = useState(true);
+    const [state, dispatch] = useReducer(reducer, initStateLogin);
+    const { messageAccount, messagePassword, values } = state;
+
+    useEffect(() => {
+        Object.keys(values).length === 2 ? setDisabled(false) : setDisabled(true);
+    }, [values]);
+
+    const handleSubmit = (e) => {
+        if (disabled) {
+            e.preventDefault();
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('box')}>
@@ -21,20 +38,35 @@ function Login() {
                         <div className={cx('logo')}>
                             <img className={cx('logo-login')} src={logoLogin} alt="logo-login" />
                         </div>
-                        <form className={cx('form')}>
+                        <form
+                            className={cx('form')}
+                            onSubmit={handleSubmit}
+                            action="http://localhost:4000/accounts/login"
+                            method="POST"
+                        >
                             <div className={cx('form-group')}>
                                 <input
-                                    name="account"
-                                    placeholder="Số điện thoại, tên người dùng hoặc email"
                                     className={cx('input')}
+                                    type="text"
+                                    name="username"
+                                    placeholder="Số điện thoại, tên người dùng hoặc email"
+                                    onBlur={(e) => dispatch(accountLogin(e.target.value))}
+                                    onInput={(e) => dispatch(accountLogin(e.target.value))}
                                 />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <small className={cx('form-message')}>{messageAccount}</small>
                             </div>
                             <div className={cx('form-group')}>
-                                <input name="password" placeholder="Mật khẩu" className={cx('input')} />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <input
+                                    className={cx('input')}
+                                    type="password"
+                                    name="password"
+                                    placeholder="Mật khẩu"
+                                    onBlur={(e) => dispatch(passwordLogin(e.target.value))}
+                                    onInput={(e) => dispatch(passwordLogin(e.target.value))}
+                                />
+                                <small className={cx('form-message')}>{messagePassword}</small>
                             </div>
-                            <Button className={cx('button')} primary disabled>
+                            <Button className={cx('button')} primary disabled={disabled}>
                                 Đăng nhập
                             </Button>
 

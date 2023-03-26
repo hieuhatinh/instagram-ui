@@ -1,3 +1,4 @@
+import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,10 +9,35 @@ import styles from './Accounts.module.scss';
 import Footer from '~/pages/components/Footer';
 import logoLogin from '~/assets/images/logo-login.png';
 import routes from '~/config';
+import reducer, { initStateRegister } from './validateAccount/reducer';
+import { accoutRegister, emailRegister, passwordRegister, phoneNumberRegister } from './validateAccount/actions';
 
 const cx = classNames.bind(styles);
 
 function Register() {
+    const [disabled, setDisabled] = useState(true);
+    const [state, dispatch] = useReducer(reducer, initStateRegister);
+    const { messageAccount, messagePassword, messageEmail, messagePhoneNumber, values } = state;
+
+    useEffect(() => {
+        Object.keys(values).length >= 2 ? setDisabled(false) : setDisabled(true);
+    }, [values]);
+
+    const handleSubmit = (e) => {
+        if (disabled) {
+            e.preventDefault();
+        }
+    };
+
+    const handleValidate = (e) => {
+        let value = e.target.value;
+        if (value.trim() !== '') {
+            return isNaN(Number(value))
+                ? dispatch(emailRegister(e.target.value))
+                : dispatch(phoneNumberRegister(e.target.value));
+        }
+    };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('box')}>
@@ -39,22 +65,38 @@ function Register() {
                             <span className={cx('line')}></span>
                         </div>
 
-                        <form className={cx('form')}>
+                        <form className={cx('form')} onSubmit={handleSubmit}>
                             <div className={cx('form-group')}>
-                                <input name="account" placeholder="Số điện thoại hoặc email" className={cx('input')} />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <input
+                                    name="email"
+                                    placeholder="Số điện thoại hoặc email"
+                                    className={cx('input')}
+                                    onBlur={handleValidate}
+                                />
+                                <small className={cx('form-message')}>{messageEmail || messagePhoneNumber}</small>
                             </div>
                             <div className={cx('form-group')}>
-                                <input name="password" placeholder="Tên đầy dủ" className={cx('input')} />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <input name="full_name" placeholder="Tên đầy dủ" className={cx('input')} />
                             </div>
                             <div className={cx('form-group')}>
-                                <input name="password" placeholder="Tên người dùng" className={cx('input')} />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <input
+                                    name="username"
+                                    placeholder="Tên người dùng"
+                                    className={cx('input')}
+                                    onBlur={(e) => dispatch(accoutRegister(e.target.value))}
+                                    onInput={(e) => dispatch(accoutRegister(e.target.value))}
+                                />
+                                <small className={cx('form-message')}>{messageAccount}</small>
                             </div>
                             <div className={cx('form-group')}>
-                                <input name="password" placeholder="Mật khẩu" className={cx('input')} />
-                                {/* <small className={cx('form-message')}>Bạn chưa nhập mật khẩu</small> */}
+                                <input
+                                    name="password"
+                                    placeholder="Mật khẩu"
+                                    className={cx('input')}
+                                    onBlur={(e) => dispatch(passwordRegister(e.target.value))}
+                                    onInput={(e) => dispatch(passwordRegister(e.target.value))}
+                                />
+                                <small className={cx('form-message')}>{messagePassword}</small>
                             </div>
 
                             <div className={cx('other')}>
@@ -81,7 +123,7 @@ function Register() {
                                 </p>
                             </div>
 
-                            <Button className={cx('button', 'mb-26')} primary disabled>
+                            <Button className={cx('button', 'mb-26')} primary disabled={disabled}>
                                 Đăng ký
                             </Button>
                         </form>
