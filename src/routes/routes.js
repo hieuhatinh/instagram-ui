@@ -9,7 +9,7 @@ import Search from '~/pages/Search';
 
 const publicRoutes = [
     {
-        path: routes.home,
+        path: routes.login,
         component: Login,
     },
     {

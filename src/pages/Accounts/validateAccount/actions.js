@@ -1,15 +1,16 @@
 import {
-    ACCOUNT_LOGIN,
+    USERNAME_LOGIN,
     PASSWORD_LOGIN,
-    ACCOUNT_REGISTER,
+    USERNAME_REGISTER,
     PASSWORD_REGISTER,
     EMAIL_REGISTER,
     PHONE_NUMBER_REGISTER,
+    FULL_NAME_REGISTER,
 } from './constant';
 
-export const accountLogin = (payload) => {
+export const usernameLogin = (payload) => {
     return {
-        type: ACCOUNT_LOGIN,
+        type: USERNAME_LOGIN,
         payload,
     };
 };
@@ -21,9 +22,9 @@ export const passwordLogin = (payload) => {
     };
 };
 
-export const accoutRegister = (payload) => {
+export const usernameRegister = (payload) => {
     return {
-        type: ACCOUNT_REGISTER,
+        type: USERNAME_REGISTER,
         payload,
     };
 };
@@ -45,6 +46,13 @@ export const emailRegister = (payload) => {
 export const phoneNumberRegister = (payload) => {
     return {
         type: PHONE_NUMBER_REGISTER,
+        payload,
+    };
+};
+
+export const fullNameRegister = (payload) => {
+    return {
+        type: FULL_NAME_REGISTER,
         payload,
     };
 };

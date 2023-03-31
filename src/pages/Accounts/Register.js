@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook } from '@fortawesome/free-brands-svg-icons';
@@ -10,11 +11,18 @@ import Footer from '~/pages/components/Footer';
 import logoLogin from '~/assets/images/logo-login.png';
 import routes from '~/config';
 import reducer, { initStateRegister } from './validateAccount/reducer';
-import { accoutRegister, emailRegister, passwordRegister, phoneNumberRegister } from './validateAccount/actions';
+import {
+    emailRegister,
+    passwordRegister,
+    phoneNumberRegister,
+    usernameRegister,
+    fullNameRegister,
+} from './validateAccount/actions';
 
 const cx = classNames.bind(styles);
 
 function Register() {
+    const navigate = useNavigate();
     const [disabled, setDisabled] = useState(true);
     const [state, dispatch] = useReducer(reducer, initStateRegister);
     const { messageAccount, messagePassword, messageEmail, messagePhoneNumber, values } = state;
@@ -23,9 +31,28 @@ function Register() {
         Object.keys(values).length >= 2 ? setDisabled(false) : setDisabled(true);
     }, [values]);
 
-    const handleSubmit = (e) => {
-        if (disabled) {
-            e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+            await axios({
+                method: 'POST',
+                url: 'http://localhost:4000/accounts/register',
+                data: {
+                    username: values.username,
+                    password: values.password,
+                    email: values.email,
+                    phone_number: values.phone_number,
+                    full_name: values.full_name,
+                },
+            }).then((data) => {
+                // xử lý thông báo cho người dùng
+                console.log(data.data);
+                navigate(routes.login);
+            });
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -69,6 +96,7 @@ function Register() {
                             <div className={cx('form-group')}>
                                 <input
                                     name="email"
+                                    type="text"
                                     placeholder="Số điện thoại hoặc email"
                                     className={cx('input')}
                                     onBlur={handleValidate}
@@ -76,21 +104,29 @@ function Register() {
                                 <small className={cx('form-message')}>{messageEmail || messagePhoneNumber}</small>
                             </div>
                             <div className={cx('form-group')}>
-                                <input name="full_name" placeholder="Tên đầy dủ" className={cx('input')} />
+                                <input
+                                    name="full_name"
+                                    type="text"
+                                    placeholder="Tên đầy dủ"
+                                    className={cx('input')}
+                                    onChange={(e) => dispatch(fullNameRegister(e.target.value))}
+                                />
                             </div>
                             <div className={cx('form-group')}>
                                 <input
                                     name="username"
+                                    type="text"
                                     placeholder="Tên người dùng"
                                     className={cx('input')}
-                                    onBlur={(e) => dispatch(accoutRegister(e.target.value))}
-                                    onInput={(e) => dispatch(accoutRegister(e.target.value))}
+                                    onBlur={(e) => dispatch(usernameRegister(e.target.value))}
+                                    onInput={(e) => dispatch(usernameRegister(e.target.value))}
                                 />
                                 <small className={cx('form-message')}>{messageAccount}</small>
                             </div>
                             <div className={cx('form-group')}>
                                 <input
                                     name="password"
+                                    type="password"
                                     placeholder="Mật khẩu"
                                     className={cx('input')}
                                     onBlur={(e) => dispatch(passwordRegister(e.target.value))}

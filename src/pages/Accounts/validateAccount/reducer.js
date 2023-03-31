@@ -1,10 +1,11 @@
 import {
-    ACCOUNT_LOGIN,
+    USERNAME_LOGIN,
     PASSWORD_LOGIN,
-    ACCOUNT_REGISTER,
+    USERNAME_REGISTER,
     PASSWORD_REGISTER,
     EMAIL_REGISTER,
     PHONE_NUMBER_REGISTER,
+    FULL_NAME_REGISTER,
 } from './constant';
 
 // initState
@@ -15,7 +16,7 @@ export const initStateLogin = {
 };
 
 export const initStateRegister = {
-    messageAccount: '',
+    messageUsername: '',
     messagePassword: '',
     messageEmail: '',
     messagePhoneNumber: '',
@@ -27,21 +28,21 @@ const reducer = (state, action) => {
     let newState;
 
     switch (action.type) {
-        case ACCOUNT_LOGIN:
+        case USERNAME_LOGIN:
             if (action.payload.trim() === '') {
-                let { account, ...newValues } = state.values;
+                let { username, ...newValues } = state.values;
                 newState = {
                     ...state,
-                    messageAccount: 'Bạn cần nhập số điện thoại hoặc email',
+                    messageUsername: 'Bạn cần nhập số điện thoại hoặc email',
                     values: newValues,
                 };
             } else {
                 newState = {
                     ...state,
-                    messageAccount: '',
+                    messageUsername: '',
                     values: {
                         ...state.values,
-                        account: action.payload,
+                        username: action.payload,
                     },
                 };
             }
@@ -65,21 +66,21 @@ const reducer = (state, action) => {
                 };
             }
             return newState;
-        case ACCOUNT_REGISTER:
+        case USERNAME_REGISTER:
             if (action.payload.trim() === '') {
-                let { account, ...newValues } = state.values;
+                let { username, ...newValues } = state.values;
                 newState = {
                     ...state,
-                    messageAccount: 'Bạn cần nhập tên người dùng',
+                    messageUsername: 'Bạn cần nhập tên người dùng',
                     values: newValues,
                 };
             } else {
                 newState = {
                     ...state,
-                    messageAccount: '',
+                    messageUsername: '',
                     values: {
                         ...state.values,
-                        account: action.payload,
+                        username: action.payload,
                     },
                 };
             }
@@ -146,6 +147,15 @@ const reducer = (state, action) => {
                     },
                 };
             }
+            return newState;
+        case FULL_NAME_REGISTER:
+            newState = {
+                ...state,
+                values: {
+                    ...state.values,
+                    full_name: action.payload,
+                },
+            };
             return newState;
 
         default:

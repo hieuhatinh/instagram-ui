@@ -71,6 +71,7 @@
 }
 
 .form-group {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 12px;
@@ -107,7 +108,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 15px 0px 18px;
+    margin: 15px 40px 18px;
 
     .line {
         border: 1px solid var(--border-color);

@@ -7,6 +7,7 @@ const routes = {
     profile: (nickname) => {
         return `/${nickname}`;
     },
+    login: '/',
     register: '/accounts/register',
 };
 

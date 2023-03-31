@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+import axios from 'axios';
 import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
@@ -10,11 +12,11 @@ import Footer from '~/pages/components/Footer';
 import logoLogin from '~/assets/images/logo-login.png';
 import routes from '~/config';
 import reducer, { initStateLogin } from './validateAccount/reducer';
-import { accountLogin, passwordLogin } from './validateAccount/actions';
+import { passwordLogin, usernameLogin } from './validateAccount/actions';
 
 const cx = classNames.bind(styles);
 
-function Login() {
+function Login({ setToken }) {
     const [disabled, setDisabled] = useState(true);
     const [state, dispatch] = useReducer(reducer, initStateLogin);
     const { messageAccount, messagePassword, values } = state;
@@ -23,9 +25,26 @@ function Login() {
         Object.keys(values).length === 2 ? setDisabled(false) : setDisabled(true);
     }, [values]);
 
-    const handleSubmit = (e) => {
-        if (disabled) {
-            e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+            await axios({
+                method: 'POST',
+                url: 'http://localhost:4000/accounts/login',
+                data: {
+                    username: values.username,
+                    password: values.password,
+                },
+            }).then((data) => {
+                console.log(data.data);
+                if (data.data.statusCode === 200) {
+                    setToken(data.data);
+                }
+            });
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -38,20 +57,15 @@ function Login() {
                         <div className={cx('logo')}>
                             <img className={cx('logo-login')} src={logoLogin} alt="logo-login" />
                         </div>
-                        <form
-                            className={cx('form')}
-                            onSubmit={handleSubmit}
-                            action="http://localhost:4000/accounts/login"
-                            method="POST"
-                        >
+                        <form className={cx('form')} onSubmit={handleSubmit}>
                             <div className={cx('form-group')}>
                                 <input
                                     className={cx('input')}
                                     type="text"
                                     name="username"
                                     placeholder="Số điện thoại, tên người dùng hoặc email"
-                                    onBlur={(e) => dispatch(accountLogin(e.target.value))}
-                                    onInput={(e) => dispatch(accountLogin(e.target.value))}
+                                    onBlur={(e) => dispatch(usernameLogin(e.target.value))}
+                                    onInput={(e) => dispatch(usernameLogin(e.target.value))}
                                 />
                                 <small className={cx('form-message')}>{messageAccount}</small>
                             </div>
@@ -69,26 +83,26 @@ function Login() {
                             <Button className={cx('button')} primary disabled={disabled}>
                                 Đăng nhập
                             </Button>
-
-                            <div className={cx('middle')}>
-                                <span className={cx('line')}></span>
-                                <span className={cx('text--middle')}>hoặc</span>
-                                <span className={cx('line')}></span>
-                            </div>
-
-                            <div className={cx('other')}>
-                                <Button
-                                    className={cx('button--facebook')}
-                                    text
-                                    iconLeft={<FontAwesomeIcon icon={faSquareFacebook} />}
-                                >
-                                    Đăng nhập bằng Facebook
-                                </Button>
-                                <Button to="/accounts/password/reset" className={cx('button--forgot')} text>
-                                    Quên mật khẩu?
-                                </Button>
-                            </div>
                         </form>
+
+                        <div className={cx('middle')}>
+                            <span className={cx('line')}></span>
+                            <span className={cx('text--middle')}>hoặc</span>
+                            <span className={cx('line')}></span>
+                        </div>
+
+                        <div className={cx('other')}>
+                            <Button
+                                className={cx('button--facebook')}
+                                text
+                                iconLeft={<FontAwesomeIcon icon={faSquareFacebook} />}
+                            >
+                                Đăng nhập bằng Facebook
+                            </Button>
+                            <Button to="/accounts/password/reset" className={cx('button--forgot')} text>
+                                Quên mật khẩu?
+                            </Button>
+                        </div>
                     </div>
                     <div className={cx('redirect')}>
                         <p className={cx('redirect__text')}>
@@ -121,5 +135,9 @@ function Login() {
         </div>
     );
 }
+
+Login.propTypes = {
+    setToken: PropTypes.node.isRequired,
+};
 
 export default Login;
