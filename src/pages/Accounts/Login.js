@@ -19,7 +19,7 @@ const cx = classNames.bind(styles);
 function Login({ setToken }) {
     const [disabled, setDisabled] = useState(true);
     const [state, dispatch] = useReducer(reducer, initStateLogin);
-    const { messageAccount, messagePassword, values } = state;
+    const { messageUsername, messagePassword, values } = state;
 
     useEffect(() => {
         Object.keys(values).length === 2 ? setDisabled(false) : setDisabled(true);
@@ -57,6 +57,7 @@ function Login({ setToken }) {
                         <div className={cx('logo')}>
                             <img className={cx('logo-login')} src={logoLogin} alt="logo-login" />
                         </div>
+
                         <form className={cx('form')} onSubmit={handleSubmit}>
                             <div className={cx('form-group')}>
                                 <input
@@ -67,7 +68,7 @@ function Login({ setToken }) {
                                     onBlur={(e) => dispatch(usernameLogin(e.target.value))}
                                     onInput={(e) => dispatch(usernameLogin(e.target.value))}
                                 />
-                                <small className={cx('form-message')}>{messageAccount}</small>
+                                <small className={cx('form-message')}>{messageUsername}</small>
                             </div>
                             <div className={cx('form-group')}>
                                 <input
